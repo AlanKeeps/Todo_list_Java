@@ -3,6 +3,7 @@ package com.example.todolist;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -28,11 +29,18 @@ public class MainActivity extends AppCompatActivity {
 
         Random random = new Random();
 
-        for (int i = 0; i <20; i++ ){
+        for (int i = 0; i < 20; i++) {
             Note note = new Note(i, "Note " + i, random.nextInt(3));
             notes.add(note);
         }
         showNotes();
+        buttonAddNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = AddNoteActivity.newIntent(MainActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initViews() {
@@ -51,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             textViewNote.setText(note.getText());
 
             int colorResId;
-            switch(note.getPriority()){
+            switch (note.getPriority()) {
                 case 0:
                     colorResId = android.R.color.holo_green_dark;
                     break;
